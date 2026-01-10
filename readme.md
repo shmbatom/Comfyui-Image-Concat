@@ -50,18 +50,18 @@ Border line styles: Solid / Dashed / Dotted / Dash-dot (fixed dashed line render
   Note: the above image can be found in "custom_nodes\Comfyui-Image-Concat\images\image_concat3.png".
 
    - (2) Input directory path of images into `a1_image_dir` ;  
-   - (3) Connect output `b1_concat_images` port to `image preview` node or  `image save` node;  
+   - (3) Connect `b1_concat_images` output port to `image preview` node or  `image save` node;  
    - (4) Input other parameters or Switch dropdown box if necessary;
-   - (5) Run to the `Image Concatenate(QQ2540968810)` node to get concated image(s) in `out` directory;
+   - (5) Run to the `Image Concatenate(QQ2540968810)` node to get concated image(s) in `comfyui/out` directory;
 
-   Note: You can get hel information about this node by connecting output `b6_tips` port to `preview any` node.
+   Note: You can get help information about this node by connecting output `b6_tips` port to `preview any` node.
 
 ✅2. other workflow example (list by `a8_draw_mode`)
 
 - (1)  small value filler
 
  Set your input port as below, you'll see 4 (show by `b2_page_count` out port) concated images.
-If you set `a13_save_blocks` = true, you can get all block files which you see in concated picture in 'comfyui/concat_blocks' directory(you can modify it by `a14_blocks_save_dir` input port).
+If you set `a13_save_blocks` = true, you can get all block files which you see in concated images in 'comfyui/concat_blocks' directory(you can modify it by `a14_blocks_save_dir` input port).
 
 ![image_concat1][def5]
 
