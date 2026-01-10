@@ -1,0 +1,318 @@
+{
+  "id": "a48cd179-e302-4897-983c-b1ff63d10007",
+  "revision": 0,
+  "last_node_id": 4,
+  "last_link_id": 3,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "ImageConcatNode",
+      "pos": [
+        -426.1588044749273,
+        214.66111034028725
+      ],
+      "size": [
+        464.9146792411399,
+        494
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "a1_image_dir",
+          "name": "a1_image_dir",
+          "type": "STRING",
+          "widget": {
+            "name": "a1_image_dir"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a2_width_page",
+          "name": "a2_width_page",
+          "type": "INT",
+          "widget": {
+            "name": "a2_width_page"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a3_aspect_ratio",
+          "name": "a3_aspect_ratio",
+          "type": "COMBO",
+          "widget": {
+            "name": "a3_aspect_ratio"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a4_n_per_row",
+          "name": "a4_n_per_row",
+          "type": "INT",
+          "widget": {
+            "name": "a4_n_per_row"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a5_margin",
+          "name": "a5_margin",
+          "type": "INT",
+          "widget": {
+            "name": "a5_margin"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a6_spacing",
+          "name": "a6_spacing",
+          "type": "INT",
+          "widget": {
+            "name": "a6_spacing"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a7_block_first_position",
+          "name": "a7_block_first_position",
+          "type": "COMBO",
+          "widget": {
+            "name": "a7_block_first_position"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a8_draw_mode",
+          "name": "a8_draw_mode",
+          "type": "COMBO",
+          "widget": {
+            "name": "a8_draw_mode"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a9_block_border",
+          "name": "a9_block_border",
+          "type": "COMBO",
+          "widget": {
+            "name": "a9_block_border"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a10_block_border_style",
+          "name": "a10_block_border_style",
+          "type": "COMBO",
+          "widget": {
+            "name": "a10_block_border_style"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a11_page_border",
+          "name": "a11_page_border",
+          "type": "COMBO",
+          "widget": {
+            "name": "a11_page_border"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a12_page_border_style",
+          "name": "a12_page_border_style",
+          "type": "COMBO",
+          "widget": {
+            "name": "a12_page_border_style"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a13_save_blocks",
+          "name": "a13_save_blocks",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "a13_save_blocks"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a14_blocks_save_dir",
+          "name": "a14_blocks_save_dir",
+          "type": "STRING",
+          "widget": {
+            "name": "a14_blocks_save_dir"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a15_background_style",
+          "name": "a15_background_style",
+          "type": "COMBO",
+          "widget": {
+            "name": "a15_background_style"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "b1_concat_images",
+          "name": "b1_concat_images",
+          "type": "IMAGE",
+          "links": [
+            2
+          ]
+        },
+        {
+          "localized_name": "b2.page_count",
+          "name": "b2.page_count",
+          "type": "INT",
+          "links": [
+            1
+          ]
+        },
+        {
+          "localized_name": "b3_wh_per_block",
+          "name": "b3_wh_per_block",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "localized_name": "b4_image_count_in_dir",
+          "name": "b4_image_count_in_dir",
+          "type": "INT",
+          "links": []
+        },
+        {
+          "localized_name": "b5_blocks_save_path",
+          "name": "b5_blocks_save_path",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "localized_name": "b6_tips",
+          "name": "b6_tips",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageConcatNode"
+      },
+      "widgets_values": [
+        "D:\\Comfy\\input\\images",
+        6000,
+        "16:9",
+        12,
+        50,
+        30,
+        "start_from margin + spacing",
+        "2.Stretches image to fill",
+        "Rounded (radius 10)",
+        "Solid",
+        "Rounded (radius 30)",
+        "Dashed (4,4)",
+        true,
+        "./output/concat_blocks",
+        "Transparent (alpha channel)"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "PreviewAny",
+      "pos": [
+        51.491314410947126,
+        274.9733961250049
+      ],
+      "size": [
+        217.72438345964508,
+        111.17315037893502
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "\u6e90",
+          "name": "source",
+          "type": "*",
+          "link": 1
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewAny"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 3,
+      "type": "SaveImage",
+      "pos": [
+        276.0955741101847,
+        215.43139273940378
+      ],
+      "size": [
+        729.7367951257509,
+        501.18974836212067
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "\u56fe\u7247",
+          "name": "images",
+          "type": "IMAGE",
+          "link": 2
+        },
+        {
+          "localized_name": "\u6587\u4ef6\u540d\u524d\u7f00",
+          "name": "filename_prefix",
+          "type": "STRING",
+          "widget": {
+            "name": "filename_prefix"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "trans"
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      1,
+      2,
+      0,
+      0
+    ],
+    [
+      2,
+      1,
+      0,
+      3,
+      0,
+      0
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "workflowRendererVersion": "LG",
+    "ds": {
+      "scale": 1.4122927695244514,
+      "offset": [
+        537.9810760628167,
+        23.515585905085803
+      ]
+    }
+  },
+  "version": 0.4
+}
