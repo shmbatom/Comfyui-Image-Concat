@@ -170,7 +170,9 @@ V1.0 stitching image as below:
 **Result:** `b2_page_count = 2` vertically centered images(For v1.1+)
 
 ![image_concat5][def8]
+
 *Note: Image path: `custom_nodes/Comfyui-Image-Concat/images/image_concat5.png`*
+
 ---
 
 ##### (5) equal title height left_right (Mode 6)
@@ -233,7 +235,12 @@ V1.0 stitching image as below:
 
 ### VI. Notes & Limitations
 
+
 - **Output format**: All output images retain alpha channel (PNG format recommended for transparency)
+- **a4_cols_rows_per_page**: Columns/Rows Per Page
+   - For Mode 1-5: Set the fixed number of columns per row
+   - For Mode 6: Set the fixed number of rows per page
+Min:1, Max:20, Default:3
 - **Saved title/images**: Include borders and alpha channel (no quality loss)
 - **Border color**: Auto-adapts to background (white on dark, black on light/transparent)
 - **Centering rules**:
@@ -268,4 +275,5 @@ If you find this tool helpful, you can buy me a cup of coffee ☕
 [def10]: images/change_size_batchly_v1.1.png
 [def11]: images/one_port.png
 [def99]: images/donate.png
+
 
