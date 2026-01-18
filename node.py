@@ -17,25 +17,49 @@ class ImageConcatNode:
     def INPUT_TYPES(s):
         return {
             "required": {
-                # 基础配置组
-                "a1_image_dir": ("STRING", {"default": "", "placeholder": "Path to image folder"}),
-                "a2_page_width": ("INT", {"default": 4000, "min": 100, "max": 50000, "step": 10}),
+                # Basic Configuration
+                "a1_image_dir": ("STRING", {
+                    "default": "",
+                    "placeholder": "Path to image folder",
+                    "tooltip": "Absolute path to the folder containing images to concatenate."
+                }),
+                "a2_page_width": ("INT", {
+                    "default": 4000,
+                    "min": 100,
+                    "max": 50000,
+                    "step": 10,
+                    "tooltip": "Total width of the output canvas (px). Height is auto-calculated based on aspect ratio."
+                }),
                 "a3_page_aspect_ratio": ("COMBO", {
                     "default": "3:2",
                     "forceInput": False,
                     "options": ["10:1", "8:1", "5:1", "5:2", "16:9", "16:10", "3:2", "4:3", "1:1",
-                                "3:4", "2:3", "10:16", "9:16", "2:5", "1:5", "1:8", "1:10"]
+                                "3:4", "2:3", "10:16", "9:16", "2:5", "1:5", "1:8", "1:10"],
+                    "tooltip": "Select the overall aspect ratio of the canvas."
                 }),
                 "a4_cols_rows_per_page": ("INT", {
                     "default": 3,
                     "min": 1,
                     "max": 20,
                     "step": 1,
-                    "label": "a4_行列数(每页) | Cols/Rows per Page",
-                    "description": "- Mode1-5: 每行固定列数（整页所有行均为此列数）\n- Mode6: 每页固定行数"
+                    "label": "a4_Cols/Rows per Page",
+                    "description": "- Mode1-5: Number of columns per row\n- Mode6: Number of rows per page",
+                    "tooltip": "Layout parameter: Columns per row for Mode 1-5, or Rows per page for Mode 6."
                 }),
-                "a5_page_margin": ("INT", {"default": 50, "min": 0, "max": 500, "step": 1}),
-                "a6_title_padding": ("INT", {"default": 30, "min": 0, "max": 200, "step": 1}),
+                "a5_page_margin": ("INT", {
+                    "default": 50,
+                    "min": 0,
+                    "max": 500,
+                    "step": 1,
+                    "tooltip": "Margin space around the canvas border (px)."
+                }),
+                "a6_title_padding": ("INT", {
+                    "default": 30,
+                    "min": 0,
+                    "max": 200,
+                    "step": 1,
+                    "tooltip": "Padding space between image title blocks (px)."
+                }),
                 "a7_title_draw_mode": ("COMBO", {
                     "default": "3.zoom by long side (recommended)",
                     "forceInput": False,
@@ -46,7 +70,8 @@ class ImageConcatNode:
                         "4.crop square by short side",
                         "5.equal title width up_down",
                         "6.equal title height left_right"
-                    ]
+                    ],
+                    "tooltip": "Choose how images fit into their blocks (e.g., Scale, Stretch, Crop, Equal Width/Height)."
                 }),
                 "a8_title_first_position": ("COMBO", {
                     "default": "start_from margin",
@@ -55,42 +80,49 @@ class ImageConcatNode:
                         "start_from margin",
                         "start_from margin + padding",
                         "start_from margin + padding(vertical centering)"
-                    ]
+                    ],
+                    "tooltip": "Alignment for the first image block (e.g., Top-left alignment, Vertical Centering)."
                 }),
-                # 样式配置组
+                # Style Configuration
                 "a9_background_style": ("COMBO", {
                     "default": "Light (white)",
                     "forceInput": False,
-                    "options": ["Light (white)", "Dark (black)", "Transparent (alpha channel)"]
+                    "options": ["Light (white)", "Dark (black)", "Transparent (alpha channel)"],
+                    "tooltip": "Set the canvas background style (White, Black, or Transparent)."
                 }),
                 "a10_title_border": ("COMBO", {
                     "default": "Rounded (radius=10px)",
                     "forceInput": False,
-                    "options": ["None", "Rectangle", "Rounded (radius=10px)", "Rounded (radius=20px)"]
+                    "options": ["None", "Rectangle", "Rounded (radius=10px)", "Rounded (radius=20px)"],
+                    "tooltip": "Border shape for individual image blocks."
                 }),
                 "a11_title_border_style": ("COMBO", {
                     "default": "Solid",
                     "forceInput": False,
                     "options": ["Solid", "Dashed (4px,4px)", "Dashed (8px,8px)", "Dotted (1px,2px)",
-                                "Dash-dot (8px,4ox,2px,4px)"]
+                                "Dash-dot (8px,4ox,2px,4px)"],
+                    "tooltip": "Line style for the image block borders (Solid, Dashed, Dotted, etc.)."
                 }),
                 "a12_page_border": ("COMBO", {
                     "default": "Rounded (radius=30px)",
                     "forceInput": False,
                     "options": ["None", "Rectangle", "Rounded (radius=10px)", "Rounded (radius=20px)",
-                                "Rounded (radius=30px)"]
+                                "Rounded (radius=30px)"],
+                    "tooltip": "Border shape for the whole page."
                 }),
                 "a13_page_border_style": ("COMBO", {
                     "default": "Solid",
                     "forceInput": False,
                     "options": ["Solid", "Dashed (4px,4px)", "Dashed (8px,8px)", "Dotted (1px,2px)",
-                                "Dash-dot (8px,4ox,2px,4px)"]
+                                "Dash-dot (8px,4ox,2px,4px)"],
+                    "tooltip": "Line style for the page border."
                 }),
                 "a14_filename_position": ("COMBO", {
                     "default": "none",
                     "forceInput": False,
                     "options": ["none", "above", "top", "middle", "bottom", "below"],
-                    "label": "a16_文件名位置"
+                    "label": "a14_Filename Position",
+                    "tooltip": "Position to display the filename (Above, Top, Middle, Bottom, Below, or None)."
                 }),
                 "a15_filename_color": ("COMBO", {
                     "default": "black",
@@ -114,22 +146,29 @@ class ImageConcatNode:
                         "cyan",
                         "magenta"
                     ],
-                    "label": "a17_文件名颜色"
+                    "label": "a15_Filename Color",
+                    "tooltip": "Select the text color for the filename."
                 }),
-                # 样式配置组
+                # Save Configuration
                 "a97_title_save_mode": ("COMBO", {
                     "default": "none",
                     "forceInput": False,
                     "options": ["none", "save single title", "save single image"],
-                    "label": "a97_title_save_mode"
+                    "label": "a97_Save Mode",
+                    "tooltip": "Select whether to save individual blocks (with padding/title or original image only)."
                 }),
                 "a98_title_save_dir": (
-                    "STRING", {"default": "./output/concat_titles", "placeholder": "title save directory path"}),
+                    "STRING", {
+                        "default": "./output/concat_titles",
+                        "placeholder": "title save directory path",
+                        "tooltip": "Directory path to save the individual titles/images."
+                    }),
                 "a99_title_save_filename": ("COMBO", {
                     "default": "source file name",
                     "forceInput": False,
                     "options": ["source file number", "source file name", "page + number"],
-                    "label": "a99_title_save_filename"
+                    "label": "a99_Filename Convention",
+                    "tooltip": "Select the naming rule for saved files (Index, Original Name, or Page+Index)."
                 }),
 
             },
@@ -1646,6 +1685,8 @@ class ImageConcatNode:
 
         concat_np = np.stack(all_concats, axis=0) if all_concats else np.zeros((1, 100, 100, 3), dtype=np.float32)
         concat_tensor = torch.from_numpy(concat_np)
+
+        # 修复：返回实际的 tips 内容，而不是空字符串
         return (concat_tensor, len(page_image_mapping), wh_per_title, image_count_in_dir, titles_final_path,
                 self.get_node_tips())
 
