@@ -254,7 +254,19 @@ Min:1, Max:20, Default:3
 
 ---
 
-### VII. Donation
+### VII. Update log
+
+#### v1.1 (2025/01/18)
+
+- ✨ Added 2 new bitmap stitching modes: equal-width vertical stitching (top to bottom), equal-height horizontal stitching (left to right)
+- ✨ Optimized the tile saving mode, including three options: none/save single block/save single image
+- ✨ Added the function of displaying image filenames on the stitched tiles, with customizable text colors (16 colors)
+- ✨ Simply connect to the b6 port to view the usage help for this node
+- 🎨 Standardized the port naming on the node page
+
+---
+
+### VIII. Donation
 
 If you find this tool helpful, you can buy me a cup of coffee ☕
 
@@ -275,5 +287,4 @@ If you find this tool helpful, you can buy me a cup of coffee ☕
 [def10]: images/change_size_batchly_v1.1.png
 [def11]: images/one_port.png
 [def99]: images/donate.png
-
 
