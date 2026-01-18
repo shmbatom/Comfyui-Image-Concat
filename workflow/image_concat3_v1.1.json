@@ -1,0 +1,528 @@
+{
+  "id": "f446dd3f-ba7c-48dc-8780-c68b9895e6c9",
+  "revision": 0,
+  "last_node_id": 23,
+  "last_link_id": 53,
+  "nodes": [
+    {
+      "id": 17,
+      "type": "PreviewAny",
+      "pos": [
+        -502.9279756537712,
+        282.86011834814894
+      ],
+      "size": [
+        252,
+        182.65625
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "\u6e90",
+          "name": "source",
+          "type": "*",
+          "link": 49
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewAny"
+      },
+      "widgets_values": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "id": 18,
+      "type": "PreviewAny",
+      "pos": [
+        -502.41229640029906,
+        469.2317817596072
+      ],
+      "size": [
+        252,
+        182.65625
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "\u6e90",
+          "name": "source",
+          "type": "*",
+          "link": 50
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewAny"
+      },
+      "widgets_values": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "id": 19,
+      "type": "PreviewAny",
+      "pos": [
+        -504.63543715785966,
+        652.3406014284442
+      ],
+      "size": [
+        252,
+        182.65625
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "\u6e90",
+          "name": "source",
+          "type": "*",
+          "link": 51
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewAny"
+      },
+      "widgets_values": [
+        null,
+        null,
+        false
+      ]
+    },
+    {
+      "id": 20,
+      "type": "PreviewAny",
+      "pos": [
+        -504.70411404401693,
+        834.6265512585496
+      ],
+      "size": [
+        252,
+        182.65625
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "\u6e90",
+          "name": "source",
+          "type": "*",
+          "link": 52
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewAny"
+      },
+      "widgets_values": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "id": 21,
+      "type": "PreviewAny",
+      "pos": [
+        -1079.715172770531,
+        1028.9598513688034
+      ],
+      "size": [
+        830.25,
+        442.0625
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "\u6e90",
+          "name": "source",
+          "type": "*",
+          "link": 53
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewAny"
+      },
+      "widgets_values": [
+        null,
+        null,
+        false
+      ]
+    },
+    {
+      "id": 3,
+      "type": "SaveImage",
+      "pos": [
+        -227.75794363099158,
+        288.12315522487035
+      ],
+      "size": [
+        1446.625,
+        1180.515625
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "\u56fe\u7247",
+          "name": "images",
+          "type": "IMAGE",
+          "link": 48
+        },
+        {
+          "localized_name": "\u6587\u4ef6\u540d\u524d\u7f00",
+          "name": "filename_prefix",
+          "type": "STRING",
+          "widget": {
+            "name": "filename_prefix"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "ComfyUI"
+      ]
+    },
+    {
+      "id": 23,
+      "type": "ImageConcatNode",
+      "pos": [
+        -1094.9983636257803,
+        285.6982961590942
+      ],
+      "size": [
+        563.84375,
+        725.375
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "a1_image_dir",
+          "name": "a1_image_dir",
+          "type": "STRING",
+          "widget": {
+            "name": "a1_image_dir"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a2_page_width",
+          "name": "a2_page_width",
+          "type": "INT",
+          "widget": {
+            "name": "a2_page_width"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a3_page_aspect_ratio",
+          "name": "a3_page_aspect_ratio",
+          "type": "COMBO",
+          "widget": {
+            "name": "a3_page_aspect_ratio"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a4_cols_rows_per_page",
+          "name": "a4_cols_rows_per_page",
+          "type": "INT",
+          "widget": {
+            "name": "a4_cols_rows_per_page"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a5_page_margin",
+          "name": "a5_page_margin",
+          "type": "INT",
+          "widget": {
+            "name": "a5_page_margin"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a6_title_padding",
+          "name": "a6_title_padding",
+          "type": "INT",
+          "widget": {
+            "name": "a6_title_padding"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a7_title_draw_mode",
+          "name": "a7_title_draw_mode",
+          "type": "COMBO",
+          "widget": {
+            "name": "a7_title_draw_mode"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a8_title_first_position",
+          "name": "a8_title_first_position",
+          "type": "COMBO",
+          "widget": {
+            "name": "a8_title_first_position"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a9_background_style",
+          "name": "a9_background_style",
+          "type": "COMBO",
+          "widget": {
+            "name": "a9_background_style"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a10_title_border",
+          "name": "a10_title_border",
+          "type": "COMBO",
+          "widget": {
+            "name": "a10_title_border"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a11_title_border_style",
+          "name": "a11_title_border_style",
+          "type": "COMBO",
+          "widget": {
+            "name": "a11_title_border_style"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a12_page_border",
+          "name": "a12_page_border",
+          "type": "COMBO",
+          "widget": {
+            "name": "a12_page_border"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a13_page_border_style",
+          "name": "a13_page_border_style",
+          "type": "COMBO",
+          "widget": {
+            "name": "a13_page_border_style"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a14_filename_position",
+          "name": "a14_filename_position",
+          "type": "COMBO",
+          "widget": {
+            "name": "a14_filename_position"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a15_filename_color",
+          "name": "a15_filename_color",
+          "type": "COMBO",
+          "widget": {
+            "name": "a15_filename_color"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a98_title_save_mode",
+          "name": "a98_title_save_mode",
+          "type": "COMBO",
+          "widget": {
+            "name": "a98_title_save_mode"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a99_title_save_dir",
+          "name": "a99_title_save_dir",
+          "type": "STRING",
+          "widget": {
+            "name": "a99_title_save_dir"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a10_title_border_style",
+          "name": "a10_title_border_style",
+          "type": "COMBO",
+          "widget": {
+            "name": "a10_title_border_style"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "a3_aspect_ratio",
+          "name": "a3_aspect_ratio",
+          "type": "COMBO",
+          "widget": {
+            "name": "a3_aspect_ratio"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "b1_concat_images",
+          "name": "b1_concat_images",
+          "type": "IMAGE",
+          "links": [
+            48
+          ]
+        },
+        {
+          "localized_name": "b2_page_count",
+          "name": "b2_page_count",
+          "type": "INT",
+          "links": [
+            49
+          ]
+        },
+        {
+          "localized_name": "b3_size_per_title",
+          "name": "b3_size_per_title",
+          "type": "STRING",
+          "links": [
+            50
+          ]
+        },
+        {
+          "localized_name": "b4_valid_image_count",
+          "name": "b4_valid_image_count",
+          "type": "INT",
+          "links": [
+            51
+          ]
+        },
+        {
+          "localized_name": "b5_title_save_path",
+          "name": "b5_title_save_path",
+          "type": "STRING",
+          "links": [
+            52
+          ]
+        },
+        {
+          "localized_name": "b6_help_info",
+          "name": "b6_help_info",
+          "type": "STRING",
+          "links": [
+            53
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageConcatNode"
+      },
+      "widgets_values": [
+        "D:\\Comfy\\input\\images",
+        6000,
+        "3:2",
+        8,
+        300,
+        100,
+        "3.zoom by long side (recommended)",
+        "start_from margin + padding(vertical centering)",
+        "Dark (black)",
+        "Rounded (radius=10px)",
+        "Dashed (4px,4px)",
+        "Rounded (radius=30px)",
+        "Solid",
+        "below",
+        "white",
+        "none",
+        "./output/concat_titles"
+      ]
+    }
+  ],
+  "links": [
+    [
+      48,
+      23,
+      0,
+      3,
+      0,
+      0
+    ],
+    [
+      49,
+      23,
+      1,
+      17,
+      0,
+      0
+    ],
+    [
+      50,
+      23,
+      2,
+      18,
+      0,
+      0
+    ],
+    [
+      51,
+      23,
+      3,
+      19,
+      0,
+      0
+    ],
+    [
+      52,
+      23,
+      4,
+      20,
+      0,
+      0
+    ],
+    [
+      53,
+      23,
+      5,
+      21,
+      0,
+      0
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.6588450000000011,
+      "offset": [
+        1656.4393217338084,
+        -48.32677142241655
+      ]
+    },
+    "workflowRendererVersion": "Vue"
+  },
+  "version": 0.4
+}
