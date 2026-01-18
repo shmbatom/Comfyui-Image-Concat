@@ -252,7 +252,7 @@ class ImageConcatNode:
       ✅ 1. Flexible Fill Modes (A7): | 灵活填充模式 (A7):
          • Mode 1-4 (Grid): "Smaller value", "Stretch", "Zoom Long side (Best)", "Crop Square".
              Provides full control over how images fit into their grid titles.
-             (1-4网格模式：提供多种方式控制图片适配网格块)
+             (1-4网格模式：提供4种方式控制图片来适配田字格)
          • Mode 5 (Equal Width): Keeps columns same width. Images stack vertically. Good for long strips.
              (5等宽模式：保持列宽一致，图片纵向堆叠，适合长图拼接)
          • Mode 6 (Equal Height): Keeps rows same height. Images stack horizontally. Good for panoramas.
@@ -270,16 +270,18 @@ class ImageConcatNode:
          • Color: Choose from 16 distinct colors (Black, White, Red, Blue, etc.) to suit any background.
              (颜色：提供16种颜色选择，适配各种背景风格)
 
-      ✅ 4. Rich Borders & Backgrounds (A9-A12, A10-A11): | 丰富边框与背景 (A9-A12, A10-A11):
+      ✅ 4. Rich Borders & Backgrounds (A9-A12, A10-A11): | 丰富边框与背景 (A9, A10-A11, A12-A13):
          • Solid or Dashed borders with custom radius. 
          • Light, Dark, or Transparent backgrounds.
              (实线/虚线边框及圆角设置。支持白色/黑色/透明背景)
 
-      ✅ 5. New Save Mode (A98, A99): | 新增保存模式 (A98, A99):
+      ✅ 5. New Save Mode (A98, A99): | 新增保存模式 (A97-A99):
          • "Save single image": Saves the image without whitespace/padding (e.g., 1024x768).
              (新增：保存原始图，去除title边距留白，例如1024x768)
          • "Save single title": Saves the image within the title canvas (e.g., 1024x1024).
              (保存title模式，包含边距留白，例如1024x1024)
+         • "3 title name method": Saves the image file by using 3 name method including source file number/source file name/ page + number.
+             (使用 3 种命名方法保存图像文件，包括源文件编号 / 源文件名称 / 页号 + 页内编号)    
 
         """
         return tips
@@ -1686,7 +1688,6 @@ class ImageConcatNode:
         concat_np = np.stack(all_concats, axis=0) if all_concats else np.zeros((1, 100, 100, 3), dtype=np.float32)
         concat_tensor = torch.from_numpy(concat_np)
 
-        # 修复：返回实际的 tips 内容，而不是空字符串
         return (concat_tensor, len(page_image_mapping), wh_per_title, image_count_in_dir, titles_final_path,
                 self.get_node_tips())
 
