@@ -2,16 +2,15 @@
 
 ---
 
-## ✨ Core Features (Latest Update: v1.1)
+## ✨ Core Features (Latest Update: v1.1 - Critical Bug Fix + All Features from v1.1)
 
 This node is a powerful image concatenation tool for ComfyUI, with True Alpha Channel Support and Multiple Image-title Fill Modes.
-It can also be used as a image-resize tool.
 
 ---
+### ✨ I. Key Capabilities (v1.1)
+---
 
-### I. Key Capabilities (v1.1)
-
-#### 1. 6 Image-title Fill Modes (Image resizing mode for each title block)
+#### 1. Six Image-title Fill Modes (Image resizing mode for each title block)
 
 | Mode | Description |
 |------|-------------|
@@ -56,11 +55,12 @@ It can also be used as a image-resize tool.
 - All saved files retain alpha channel (PNG format)
 
 ---
-
-### II. Input Parameters (v1.1 Full List)
+### ✨ II. Input Parameters (v1.1 Full List)
+---
 
 | Parameter Name | Type | Default | Description |
 |----------------|------|---------|-------------|
+| **a0_images** | IMAGE | "" | connect input image(s) from other node (Optional) |
 | **a1_image_dir** | STRING | "" | Absolute path of image folder (Required) |
 | **a2_page_width** | INT | 4000 | Total width of canvas (px), height auto-calculated by aspect ratio (max 50000px) |
 | **a3_page_aspect_ratio** | COMBO | 3:2 | Overall canvas aspect ratio (10:1 ~ 1:10, e.g., 9:16 for vertical layout) |
@@ -81,8 +81,8 @@ It can also be used as a image-resize tool.
 | **a99_title_save_filename** | COMBO | source file name | Save filename mode（source file number/source file name/page + number）|
 
 ---
-
-### III. 📤 Outputs (v1.1)
+### ✨ III. Outputs (v1.1)
+---
 
 | Output Name | Type | Description |
 |-------------|------|-------------|
@@ -94,8 +94,8 @@ It can also be used as a image-resize tool.
 | **b6_help_info** | STRING | Full parameter guide (connect to "preview any" node to view) |
 
 ---
-
-### IV. Get user guide qucikly
+### ✨ IV. Get user guide qucikly
+---
 
 ####  ONLY by connecting one port, you can get user guide of this node tool.
 1. Connect `b6_help_info` to "Preview any" 
@@ -104,17 +104,23 @@ It can also be used as a image-resize tool.
 ![help_info][def11]
 
 ---
-
-### V. Usage Examples
+### ✨ V. Usage Examples
+---
 
 #### ✅ 1. Basic Usage (Quick Start)
 
-1. In ComfyUI, double-click to search for "concat", select `Image Concatenate(QQ2540968810)` node (under `Image Processing/concat`)
-2. Fill `a1_image_dir` with your image folder path (absolute path recommended)
-3. Connect `b1_concat_images` to "Image Preview" or "Save Image" node
-4. Adjust parameters (e.g., `a4_cols_rows_per_page` for rows/columns, `a7_title_draw_mode` for fill style)
-5. Run the node → Get concatenated images in `ComfyUI/output` directory
-6. (Optional) Connect `b6_help_info` to "Preview Any" node to view full parameter guide
+- (1) In ComfyUI, double-click to search for "concat", select `Image Concatenate(QQ2540968810)` node (under `Image Processing/concat`)
+
+- (2) Fill `a1_image_dir` with your image folder path (absolute path recommended)
+
+- (3) Connect `b1_concat_images` to "Image Preview" or "Save Image" node
+
+- (4) Adjust parameters (e.g., `a4_cols_rows_per_page` for rows/columns, `a7_title_draw_mode` for fill style)
+
+- (5) Run the node → Get concatenated images in `ComfyUI/output` directory
+
+- (6) (Optional) Connect `b6_help_info` to "Preview Any" node to view full parameter guide
+
 ![image_concat3][def4_v1.1]
 V1.0 stitching image as below:
 ![image_concat3][def4]
@@ -124,53 +130,57 @@ V1.0 stitching image as below:
 
 #### ✅ 2. Advanced Workflow Examples
 
-##### (1) smaller value filler (Mode 1)
+**(1) smaller value filler (Mode 1)**
 
 **Parameters:**
 - a4_n_per_rows = 5 (5 columns per row, this port name was changed to `a4_cols_rows_per_page` from v1.1)
 - a8_draw_mode = "1.smaller value filler"(this port name was changed to `a7_title_draw_mode` from v1.1)
 
-**Result:** `b2_page_count = 4` concatenated images(For v1.0), all title blocks saved to `a14_blocks_save_dir`(this port name was changed to `a98_title_save_dir` from v1.1)
+**Result:** 
+- `b2_page_count = 4` concatenated images(For v1.0), all title blocks saved to `a14_blocks_save_dir`(this port name was changed to `a98_title_save_dir` from v1.1)
 
 ![image_concat1][def5]
 *Note: Image path: `custom_nodes/Comfyui-Image-Concat/images/image_concat1.png`*
 
 ---
 
-##### (2) stretches image to fill (Mode 2)
+**(2) stretches image to fill (Mode 2)**
 
 **Parameters:**
 - set Parameters like the image(For v1.0) as below
 - Parameters for versions above V1.0 can be configured similarly to V1.0.
 
-**Result:** `b2_page_count = 1` RGBA image (editable in Photoshop)
+**Result:**
+- `b2_page_count = 1` RGBA image (editable in Photoshop)
 
 ![image_concat2][def6]
 *Note: Image path: `custom_nodes/Comfyui-Image-Concat/images/image_concat2.png`*
 
 ---
 
-##### (3) crop square by short side (Mode 4) + Vertical Centering
+**(3) crop square by short side (Mode 4) + Vertical Centering**
 
 **Parameters:**
 - set Parameters like the image(For v1.0) as below
 - Parameters for versions above V1.0 can be configured similarly to V1.0.
 
-**Result:** `b2_page_count = 2` vertically centered images
+**Result:** 
+- `b2_page_count = 2` vertically centered images
 
 ![image_concat4][def7]
 *Note: Image path: `custom_nodes/Comfyui-Image-Concat/images/image_concat4.png`*
 
 ---
 
-##### (4) equal title width up_down (Mode 5)
+**(4) equal title width up_down (Mode 5)**
 
 **Parameters:**
 - a7_title_draw_mode = "5.equal title width up_down"
 - a4_cols_rows_per_page = 1 (single column)
 - a8_title_first_position = "start_from margin + padding(vertical centering)"
 
-**Result:** `b2_page_count = 2` vertically centered images(For v1.1+)
+**Result:** 
+- `b2_page_count = 2` vertically centered images(For v1.1+)
 
 ![image_concat5][def8]
 
@@ -178,7 +188,7 @@ V1.0 stitching image as below:
 
 ---
 
-##### (5) equal title height left_right (Mode 6)
+**(5) equal title height left_right (Mode 6)**
 
 **Parameters:**
 - a7_title_draw_mode = "6.equal title height left_right"
@@ -186,11 +196,24 @@ V1.0 stitching image as below:
 - a14_filename_position = "bottom" (show filename at image bottom)
 - a15_filename_color = "white" (match dark background)
 
-**Result:** `b2_page_count = 3` vertically centered images(For v1.1+)
+
+**Result:**
+- `b2_page_count = 3` vertically centered images(For v1.1+)
 
 ![image_concat6][def9]
 
 *Note: Image path: `custom_nodes/Comfyui-Image-Concat/images/image_concat6.png`*
+
+---
+
+**(6) input images example**
+
+**Result:**
+- `b2_page_count = 1` vertically centered images(For v1.1+)
+
+![from_input_images][def12]
+
+*Note: Image path: `custom_nodes/Comfyui-Image-Concat/images/from_input_images.png`*
 
 ---
 
@@ -212,11 +235,10 @@ V1.0 stitching image as below:
 ![change_size_batchly_v1.1][def10]
 
 ---
+### ✨ VI. Installation
+---
 
-### VI. Installation
-
-#### Method 1: Manual Installation (Recommended)
-1. Manual Installation (Recommended) 
+- ✅ **Method 1: Manual Installation (Recommended)**
 
    (1) Navigate to ComfyUI custom nodes directory:
    ```bash
@@ -228,18 +250,19 @@ V1.0 stitching image as below:
    ```
    (3) Restart ComfyUI service.
 
-#### Method 2: ComfyUI Manager
 
-1. Open ComfyUI Manager
-2. Search for "Comfyui-Image-Concat"
-3. Click "Install"
-4. Restart ComfyUI
-5. Find the node: `Image Processing/concat` → `Image concatenate(QQ2540968810)`
+- ✅ **Method 2: ComfyUI Manager**
+
+- (1) Open ComfyUI Manager
+- (2) Search for "Comfyui-Image-Concat"
+- (3) Click "Install"
+- (4) Restart ComfyUI
+- (5) Find the node: `Image Processing/concat` → `Image concatenate(QQ2540968810)`
 
 ---
 
-### VII. Notes & Limitations
-
+### ✨ VII. Notes & Limitations
+---
 
 - **Output format**: All output images retain alpha channel (PNG format recommended for transparency)
 - **a4_cols_rows_per_page**: Columns/Rows Per Page
@@ -259,19 +282,21 @@ Min:1, Max:20, Default:3
 
 ---
 
-### VIII. Update log
+### ✨ VIII. Changelog
+---
 
 #### v1.1 (2025/01/18)
 
-- ✨ Added 2 new bitmap stitching modes: equal-width vertical stitching (top to bottom), equal-height horizontal stitching (left to right)
-- ✨ Optimized the tile saving mode, including three options: none/save single block/save single image
-- ✨ Added the function of displaying image filenames on the stitched tiles, with customizable text colors (16 colors)
-- ✨ Simply connect to the b6 port to view the usage help for this node
+-  Added 2 new bitmap stitching modes: equal-width vertical stitching (top to bottom), equal-height horizontal stitching (left to right)
+-  Optimized the tile saving mode, including three options: none/save single block/save single image
+-  Added the function of displaying image filenames on the stitched tiles, with customizable text colors (16 colors)
+-  Simply connect to the b6 port to view the usage help for this node
 - 🎨 Standardized the port naming on the node page
 
 ---
 
-### IX. Donation
+### ✨ IX. Donation
+---
 
 If you find this tool helpful, you can buy me a cup of coffee ☕
 
@@ -291,8 +316,6 @@ If you find this tool helpful, you can buy me a cup of coffee ☕
 [def9]: images/image_concat6_v1.1.png
 [def10]: images/change_size_batchly_v1.1.png
 [def11]: images/one_port.png
+[def12]: images/from_input_images.png
 [def99]: images/donate.png
-
-
-
 
