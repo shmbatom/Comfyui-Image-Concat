@@ -1,14 +1,14 @@
-# Comfyui-Image-Concat - A Powerful Image Concatenation Tool (v1.2)
+# Comfyui-Image-Concat - A Powerful Image Concatenation Tool (v1.1)
 
 ---
 
-## ✨ Core Features (Latest Update: v1.2 - Critical Bug Fix + All Features from v1.1)
+## ✨ Core Features (Latest Update: v1.1 - Critical Bug Fix + All Features from v1.1)
 
 This node is a powerful image concatenation tool for ComfyUI, with True Alpha Channel Support and Multiple Image-title Fill Modes.
 
 ---
 
-### I. Key Capabilities (v1.2)
+### I. Key Capabilities (v1.1)
 
 #### 1. 6 Image-title Fill Modes (Image resizing mode for each title block)
 
@@ -56,7 +56,7 @@ This node is a powerful image concatenation tool for ComfyUI, with True Alpha Ch
 
 ---
 
-### II. Input Parameters (v1.2 Full List)
+### II. Input Parameters (v1.1 Full List)
 
 | Parameter Name | Type | Default | Description |
 |----------------|------|---------|-------------|
@@ -81,7 +81,7 @@ This node is a powerful image concatenation tool for ComfyUI, with True Alpha Ch
 
 ---
 
-### III. 📤 Outputs (v1.2)
+### III. 📤 Outputs (v1.1)
 
 | Output Name | Type | Description |
 |-------------|------|-------------|
