@@ -124,11 +124,10 @@ V1.0 stitching image as below:
 ##### (1) smaller value filler (Mode 1)
 
 **Parameters:**
-- a4_cols_rows_per_page = 4 (4 columns per row)
-- a97_title_save_mode = "save single title"
-- a9_background_style = "Transparent (alpha channel)"
+- a4_n_per_rows = 5 (5 columns per row, this port name was changed to `a4_cols_rows_per_page` from v1.1)
+- a8_draw_mode = "1.smaller value filler"(this port name was changed to `a7_title_draw_mode` from v1.1)
 
-**Result:** `b2_page_count = 4` concatenated images(For v1.0), all title blocks saved to `a98_title_save_dir`
+**Result:** `b2_page_count = 4` concatenated images(For v1.0), all title blocks saved to `a14_blocks_save_dir`(this port name was changed to `a98_title_save_dir` from v1.1)
 
 ![image_concat1][def5]
 *Note: Image path: `custom_nodes/Comfyui-Image-Concat/images/image_concat1.png`*
@@ -138,11 +137,10 @@ V1.0 stitching image as below:
 ##### (2) stretches image to fill (Mode 2)
 
 **Parameters:**
-- a3_page_aspect_ratio = 16:9 (wide screen layout)
-- a9_background_style = "Transparent (alpha channel)"
-- a97_title_save_mode = "save single image" (save original size images, no padding)
+- set Parameters like the image(For v1.0) as below
+- Parameters for versions above V1.0 can be configured similarly to V1.0.
 
-**Result:** `b2_page_count = 1`(For v1.0) RGBA image (editable in Photoshop)
+**Result:** `b2_page_count = 1` RGBA image (editable in Photoshop)
 
 ![image_concat2][def6]
 *Note: Image path: `custom_nodes/Comfyui-Image-Concat/images/image_concat2.png`*
@@ -152,12 +150,10 @@ V1.0 stitching image as below:
 ##### (3) crop square by short side (Mode 4) + Vertical Centering
 
 **Parameters:**
-- a4_cols_rows_per_page = 3 (3 columns per row)
-- a8_title_first_position = "start_from margin + padding(vertical centering)"
-- a3_page_aspect_ratio = 2:3 (vertical layout)
-- a9_background_style = "Dark (black)" (border auto switches to white)
+- set Parameters like the image(For v1.0) as below
+- Parameters for versions above V1.0 can be configured similarly to V1.0.
 
-**Result:** `b2_page_count = 2` vertically centered images(For v1.0)
+**Result:** `b2_page_count = 2` vertically centered images
 
 ![image_concat4][def7]
 *Note: Image path: `custom_nodes/Comfyui-Image-Concat/images/image_concat4.png`*
