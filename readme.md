@@ -2,7 +2,7 @@
 
 ---
 
-## ✨ Core Features (Latest Update: v1.1 - Critical Bug Fix + All Features from v1.1)
+## ✨ Core Features (Latest Update: v1.1)
 
 This node is a powerful image concatenation tool for ComfyUI, with True Alpha Channel Support and Multiple Image-title Fill Modes.
 
@@ -291,5 +291,6 @@ If you find this tool helpful, you can buy me a cup of coffee ☕
 [def10]: images/change_size_batchly_v1.1.png
 [def11]: images/one_port.png
 [def99]: images/donate.png
+
 
 
