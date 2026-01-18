@@ -98,7 +98,7 @@ This node is a powerful image concatenation tool for ComfyUI, with True Alpha Ch
 
 ####  ONLY by connecting one port, you can get user guide of this node tool.
 1. Connect `b6_help_info` to "Preview any" 
-2. Drag below image, which can be found in directory `./custom_nodes/Comfyui-Image-Concat/images/one_port.png`, onto comfyui page
+2. Drag below image `one_port.png`, which can be found in directory `./custom_nodes/Comfyui-Image-Concat/images/`, onto comfyui page
 3. Run this node
 ![help_info][def11]
 
@@ -268,3 +268,4 @@ If you find this tool helpful, you can buy me a cup of coffee ☕
 [def10]: images/change_size_batchly_v1.1.png
 [def11]: images/one_port.png
 [def99]: images/donate.png
+
