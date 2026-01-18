@@ -21,7 +21,7 @@ class ImageConcatNode:
                 "a1_image_dir": ("STRING", {
                     "default": "",
                     "placeholder": "Path to image folder",
-                    "tooltip": "Absolute path to the folder containing images to concatenate."
+                    "tooltip": "Absolute path to the folder containing images to concatenate. Ignored if 'a0_images' are connected via input."
                 }),
                 "a2_page_width": ("INT", {
                     "default": 4000,
@@ -172,7 +172,11 @@ class ImageConcatNode:
                 }),
 
             },
-            "optional": {},
+            "optional": {
+                "a0_images": ("IMAGE",
+                                    {"tooltip": "select image(s) from other node.\n"
+                                     " If 'a0_images' are connected via input, `a1_image_dir` will be IGNORE."}),
+            },
         }
 
     RETURN_TYPES = ("IMAGE", "INT", "STRING", "INT", "STRING", "STRING")
@@ -181,7 +185,8 @@ class ImageConcatNode:
         "b6_help_info")
     FUNCTION = "generate_concat"
     CATEGORY = "Image Processing/concat"
-    DESCRIPTION = "✅修复PageIdx未定义错误 | 文件名X轴居中修正 | 所有模式正常显示 | 自定义文件名颜色 | 独立图片保存模式"
+    DESCRIPTION = "A powerful image concatenation tool for ComfyUI, with True Alpha Channel Support " \
+                  "and Multiple Image-title Fill Modes. It can also be used as a image-resize tool."
 
     def get_node_tips(self):
         tips = """
@@ -193,11 +198,14 @@ class ImageConcatNode:
 
     【 I. Input Params A1~A17 Detailed Usage | 输入参数 A1 ~ A17 详细用法 】
     ---------------------------------------------------------------------------
-    ▷ a1_image_dir     | 图片文件夹绝对路径，必填 | Absolute path of image folder (Required)
+    ▷ a0_images        | 选择其他节点输入的图像 (可选) | select image(s) from other node (Optional)
+                       | 如果连接了此节点，则`a1_image_dir`失效 | If 'a0_images' are connected via input, `a1_image_dir` will be IGNORE
+    ▷ a1_image_dir     | 图片文件夹绝对路径，必填  | Absolute path of image folder (Required)
+                       | Supports upstream Image input (Optional). If connected, folder path is ignored.
     ▷ a2_page_width    | 拼接画布总宽度(px)，高度由宽高比自动计算 | Total width of canvas(px), height auto-calculated by aspect ratio
-    ▷ a3_page_aspect_ratio  | 画布整体宽高比 | Overall aspect ratio of canvas
+    ▷ a3_page_aspect_ratio  | 画布整体宽高比     | Overall aspect ratio of canvas
                        | Options: 10:1 8:1 5:1 5:2 16:9 16:10 3:2 4:3 1:1 3:4 2:3 10:16 9:16 2:5 1:5 1:8 1:10
-    ▷ a4_cols_rows_per_page | 全局通用队列数 | Global common queue count
+    ▷ a4_cols_rows_per_page | 全局通用队列数     | Global common queue count
                        | - Mode 1-4: 每行图片个数 (Columns per row)
                        | - Mode 5: 每列的块组数 (Groups per column)
                        | - Mode 6: 每页行数 (Rows per page)
@@ -249,7 +257,13 @@ class ImageConcatNode:
 
     【 III. Core Features & Optimization Log | 核心特性与更新日志 】 
     ---------------------------------------------------------------------------
-      ✅ 1. Flexible Fill Modes (A7): | 灵活填充模式 (A7):
+      ✅ 1. Input Stream Support | 输入流支持
+         • Now supports connecting IMAGE output from other nodes directly.
+           现在支持直接连接其他节点的 IMAGE 输出。
+         • Automatically generates virtual filenames for display and saving logic.
+           自动生成虚拟文件名用于显示和保存逻辑。
+
+      ✅ 2. Flexible Fill Modes (A7): | 灵活填充模式 (A7):
          • Mode 1-4 (Grid): "Smaller value", "Stretch", "Zoom Long side (Best)", "Crop Square".
              Provides full control over how images fit into their grid titles.
              (1-4网格模式：提供4种方式控制图片来适配田字格)
@@ -258,24 +272,24 @@ class ImageConcatNode:
          • Mode 6 (Equal Height): Keeps rows same height. Images stack horizontally. Good for panoramas.
              (6等高模式：保持行高一致，图片横向堆叠，适合全景图)
 
-      ✅ 2. Smart Alignment (A8): | 智能对齐 (A8):
+      ✅ 3. Smart Alignment (A8): | 智能对齐 (A8):
          • "Vertical Centering": Automatically centers content vertically on the canvas when pages are not full.
              (垂直居中：当页面未填满时，自动在画布垂直方向居中内容)
          • "Last Row Centering": In multi-column modes (A4>1), if the last row is incomplete, it is centered.
              (末行居中：多列模式下，若最后一行未满，自动居中显示)
 
-      ✅ 3. Customizable Text & Style (A14, A15): | 自定义文本与样式 (A14, A15):
+      ✅ 4. Customizable Text & Style (A14, A15): | 自定义文本与样式 (A14, A15):
          • Position: Show filenames (out of title: above/below, inside of title: top/middle/bottom). 
              (位置：显示文件名，位于图块或图片不同位置。)
          • Color: Choose from 16 distinct colors (Black, White, Red, Blue, etc.) to suit any background.
              (颜色：提供16种颜色选择，适配各种背景风格)
 
-      ✅ 4. Rich Borders & Backgrounds (A9-A12, A10-A11): | 丰富边框与背景 (A9, A10-A11, A12-A13):
+      ✅ 5. Rich Borders & Backgrounds (A9-A12, A10-A11): | 丰富边框与背景 (A9, A10-A11, A12-A13):
          • Solid or Dashed borders with custom radius. 
          • Light, Dark, or Transparent backgrounds.
              (实线/虚线边框及圆角设置。支持白色/黑色/透明背景)
 
-      ✅ 5. New Save Mode (A98, A99): | 新增保存模式 (A97-A99):
+      ✅ 6. New Save Mode (A98, A99): | 新增保存模式 (A97-A99):
          • "Save single image": Saves the image without whitespace/padding (e.g., 1024x768).
              (新增：保存原始图，去除title边距留白，例如1024x768)
          • "Save single title": Saves the image within the title canvas (e.g., 1024x1024).
@@ -419,6 +433,13 @@ class ImageConcatNode:
             font = ImageFont.load_default(size=font_size)
         return font
 
+    def load_image_any_source(self, filename):
+        """智能加载图像：优先从缓存（输入图像）加载，否则从磁盘加载"""
+        if self.use_input_images:
+            return self.image_cache.get(filename)
+        else:
+            return Image.open(os.path.join(self.image_dir_full, filename))
+
     def save_single_title(self, img_resized, title_border, title_border_style,
                           save_dir, filename, add_filename, filename_color, save_mode, save_filename_mode,
                           page_num, idx, global_idx, w_title, h_title, border_width=2,
@@ -426,49 +447,32 @@ class ImageConcatNode:
         bg_color, img_mode = self.get_background_config(background_style)
         border_color = self.get_border_color(background_style)
 
-        # ========== 优化：去除文件名后缀 ==========
         draw_name = os.path.splitext(filename)[0]
-        # =========================================
 
-        # ========== 统一文件名映射逻辑 ==========
-        # 无论是在 title 还是 Image 模式下，统一处理 above/below 的映射
         effective_add_filename = add_filename
         if effective_add_filename == "above":
             effective_add_filename = "top"
         elif effective_add_filename == "below":
             effective_add_filename = "bottom"
-        # =========================================
 
-        # ========== 生成保存路径 ==========
         if save_filename_mode == "source file number":
-            # 格式: 00001.ext
             _, ext = os.path.splitext(filename)
-            # 保留原始扩展名，如果原始扩展名非图片后缀，默认使用png
-            # 此处简单保留原扩展名
             save_name = f"{global_idx + 1:05d}{ext}"
         elif save_filename_mode == "page + number":
-            # 格式: p1_1.png (idx from 1)
             save_name = f"p{page_num}_{idx + 1}.png"
-        else:  # source file name
+        else:
             save_name = filename
 
         save_path = os.path.join(save_dir, save_name)
-        # ======================================
 
-        # ========== save single image 模式逻辑 ==========
         if save_mode == "image":
-            # 使用图片实际尺寸作为画布大小
             canvas_w = img_resized.width
             canvas_h = img_resized.height
             title_canvas = Image.new(img_mode, (canvas_w, canvas_h), color=bg_color)
-
-            # 粘贴图片（左上角对齐）
             title_canvas.paste(img_resized, (0, 0))
 
-            # 文件名绘制
             if effective_add_filename != "none" and filename:
                 draw = ImageDraw.Draw(title_canvas)
-                # 动态计算字体大小
                 font_size = int(min(canvas_w, canvas_h) * 0.05)
                 font = self.get_font(max(font_size, 10))
                 text_bbox = draw.textbbox((0, 0), draw_name, font=font)
@@ -478,7 +482,6 @@ class ImageConcatNode:
                 text_x = (canvas_w - text_w) // 2
                 gap = 8
 
-                # 以图形边缘为界绘制
                 if effective_add_filename == "top":
                     text_y = gap
                 elif effective_add_filename == "middle":
@@ -490,7 +493,6 @@ class ImageConcatNode:
 
                 draw.text((text_x, text_y), draw_name, fill=filename_color, font=font)
 
-            # 边框绘制
             if title_border != "None":
                 draw = ImageDraw.Draw(title_canvas)
                 dash_pattern = self.get_dash_pattern(title_border_style)
@@ -509,9 +511,7 @@ class ImageConcatNode:
                     )
             title_canvas.save(save_path, 'PNG', quality=100, pnginfo=None, optimize=False)
             return
-        # =================================================
 
-        # ========== save single title 模式逻辑 (已优化) ==========
         title_canvas = Image.new(img_mode, (int(w_title), int(h_title)), color=bg_color)
         img_x = (int(w_title) - img_resized.width) // 2
         img_y = (int(h_title) - img_resized.height) // 2
@@ -534,7 +534,6 @@ class ImageConcatNode:
             text_x = (int(w_title) - text_w) // 2
             gap = 8
 
-            # 以 title 边缘为界绘制
             if effective_add_filename == "top":
                 text_y = gap
             elif effective_add_filename == "middle":
@@ -568,11 +567,13 @@ class ImageConcatNode:
         if not image_files:
             return []
 
+        # --- 修改：使用新加载器 ---
         try:
-            with Image.open(os.path.join(self.image_dir_full, image_files[0])) as img:
-                first_w, first_h = img.size
+            img = self.load_image_any_source(image_files[0])
+            first_w, first_h = img.size
         except:
             first_w, first_h = 100, 100
+        # ------------------------
 
         if first_w <= 0 or first_h <= 0:
             first_w, first_h = 100, 100
@@ -628,11 +629,13 @@ class ImageConcatNode:
 
             while idx < len(image_files):
                 img_file = image_files[idx]
+                # --- 修改：使用新加载器 ---
                 try:
-                    with Image.open(os.path.join(self.image_dir_full, img_file)) as img:
-                        cur_w, cur_h = img.size
+                    img = self.load_image_any_source(img_file)
+                    cur_w, cur_h = img.size
                 except:
                     cur_w, cur_h = 100, 100
+                # ------------------------
 
                 if cur_w <= 0 or cur_h <= 0:
                     cur_w, cur_h = 100, 100
@@ -700,13 +703,14 @@ class ImageConcatNode:
         h_diff_title_size = []
         img_wh_list = []
         for img_file in image_files:
+            # --- 修改：使用新加载器 ---
             try:
-                img_path = os.path.join(self.image_dir_full, img_file)
-                img = Image.open(img_path).convert('RGB')
+                img = self.load_image_any_source(img_file).convert('RGB')
                 img_wh_list.append((img.width, img.height))
             except Exception as e:
                 print(f"[Error] Read img {img_file} failed: {e}")
                 img_wh_list.append((w_title_size_int, w_title_size_int))
+            # ------------------------
 
         title_groups = []
         h_title_group_size = []
@@ -769,13 +773,14 @@ class ImageConcatNode:
         w_diff_title_size = []
         img_wh_list = []
         for img_file in image_files:
+            # --- 修改：使用新加载器 ---
             try:
-                img_path = os.path.join(self.image_dir_full, img_file)
-                img = Image.open(img_path).convert('RGB')
+                img = self.load_image_any_source(img_file).convert('RGB')
                 img_wh_list.append((img.width, img.height))
             except Exception as e:
                 print(f"[Error] Read img {img_file} failed: {e}")
                 img_wh_list.append((h_title_size_int, h_title_size_int))
+            # ------------------------
 
         h_each_row = self.calc_h_each_row(height_page_use, padding, title_first_position, n_per_row)
 
@@ -890,12 +895,14 @@ class ImageConcatNode:
                 # Mode 6: Horizontal
                 dims = []
                 for img_file in image_files_page:
+                    # --- 修改：使用新加载器 ---
                     try:
-                        with Image.open(os.path.join(self.image_dir_full, img_file)) as img:
-                            orig_w, orig_h = img.size
-                            if orig_w <= 0 or orig_h <= 0: orig_w, orig_h = 100, 100
+                        img = self.load_image_any_source(img_file)
+                        orig_w, orig_h = img.size
+                        if orig_w <= 0 or orig_h <= 0: orig_w, orig_h = 100, 100
                     except:
                         orig_w, orig_h = 100, 100
+                    # ------------------------
                     ratio = orig_w / orig_h if orig_h > 0 else 1
                     dw = int(h_title_size_int * ratio)
                     dims.append(dw)
@@ -917,8 +924,9 @@ class ImageConcatNode:
                 for idx, img_file in enumerate(image_files_page):
                     dw = dims[idx]
                     current_global_idx = global_start_idx + idx
+                    # --- 修改：使用新加载器 ---
                     try:
-                        img = Image.open(os.path.join(self.image_dir_full, img_file)).convert('RGB')
+                        img = self.load_image_any_source(img_file).convert('RGB')
                         orig_w, orig_h = img.size
                         if orig_w <= 0 or orig_h <= 0: orig_w, orig_h = 100, 100
 
@@ -959,7 +967,6 @@ class ImageConcatNode:
 
                         # Filename Queue
                         if add_filename != "none":
-                            # 修正：直接使用传入的颜色
                             text_color = filename_color
 
                             font_size = int(min(dw_calc, dh) * 0.05)
@@ -979,7 +986,6 @@ class ImageConcatNode:
                                 text_y = img_draw_y + dh - text_h - gap
                             elif add_filename == "below":
                                 text_y = title_y + dh + gap
-                            # bg设为None，移除衬底
                             filename_draw_info.append({'xy': (text_x, text_y),
                                                        'rect': [text_x - 5, text_y - 2, text_x + text_w + 5,
                                                                 text_y + text_h + 2], 'text': img_file, 'font': font,
@@ -992,12 +998,14 @@ class ImageConcatNode:
                 # Mode 1-5: Vertical
                 dims = []
                 for img_file in image_files_page:
+                    # --- 修改：使用新加载器 ---
                     try:
-                        with Image.open(os.path.join(self.image_dir_full, img_file)) as img:
-                            orig_w, orig_h = img.size
-                            if orig_w <= 0 or orig_h <= 0: orig_w, orig_h = 100, 100
+                        img = self.load_image_any_source(img_file)
+                        orig_w, orig_h = img.size
+                        if orig_w <= 0 or orig_h <= 0: orig_w, orig_h = 100, 100
                     except:
                         orig_w, orig_h = 100, 100
+                    # ------------------------
 
                     if page_meta['type'] == 'square':
                         dh = w_title_size_int
@@ -1036,8 +1044,9 @@ class ImageConcatNode:
                     elif idx > 0:
                         title_y += padding
 
+                    # --- 修改：使用新加载器 ---
                     try:
-                        img = Image.open(os.path.join(self.image_dir_full, img_file)).convert('RGB')
+                        img = self.load_image_any_source(img_file).convert('RGB')
                         orig_w, orig_h = img.size
                         if orig_w <= 0 or orig_h <= 0: orig_w, orig_h = 100, 100
 
@@ -1119,7 +1128,6 @@ class ImageConcatNode:
                                 text_y = img_draw_y + ref_h - text_h - gap
                             elif add_filename == "below":
                                 text_y = title_y + ref_h + gap
-                            # bg设为None，移除衬底
                             filename_draw_info.append({'xy': (text_x, text_y),
                                                        'rect': [text_x - 5, text_y - 2, text_x + text_w + 5,
                                                                 text_y + text_h + 2], 'text': img_file, 'font': font,
@@ -1140,7 +1148,7 @@ class ImageConcatNode:
             w_row_group_size = []
             row_groups = []
             page_lock_height = h_title_size_int
-            page_total_occupy_h_local = []  # Local storage for page_total_occupy_h
+            page_total_occupy_h_local = []
 
             # Vertical Centering Calc
             y_offset = 0
@@ -1167,7 +1175,6 @@ class ImageConcatNode:
             if normal_mode and vertical_offset_mode:
                 total_title_area_width = n_per_row * w_title_size_int + (n_per_row - 1) * padding
                 center_offset_x = int((width_page_use - total_title_area_width) / 2)
-                # 在垂直居中模式下，更新偏移量
                 x_offset_last_row = center_offset_x
 
             if equal_width_mode:
@@ -1189,23 +1196,21 @@ class ImageConcatNode:
                 if n_per_row == 1:
                     center_offset_x = int((width_page_use - page_lock_height) / 2)
 
-                # ========== 修正垂直居中逻辑 ==========
-                # 这里的 page_total_occupy_h_local 是针对当前页image_files_page计算出来的列表
-                # 它只包含一个元素：当前页的内容高度
                 mode6_center_y = 0
                 if vertical_offset_mode and len(page_total_occupy_h_local) > 0 and page_total_occupy_h_local[
                     0] < height_page_use:
-                    # 修正：使用索引 0，而不是 page_idx-1
                     total_h_current = page_total_occupy_h_local[0]
                     mode6_center_y = int((height_page_use - total_h_current) / 2)
-                # ==============================================
 
             # Drawing Loop
             for idx, img_file in enumerate(image_files_page):
                 current_global_idx = global_start_idx + idx
+                # --- 修改：使用新加载器 ---
                 try:
-                    img = Image.open(os.path.join(self.image_dir_full, img_file)).convert('RGB')
+                    img = self.load_image_any_source(img_file).convert('RGB')
                     img_org_w, img_org_h = img.size
+                    # ...
+                    # 保持原有逻辑
                     canvas_x = 0
                     canvas_y = 0
                     resize_w = w_title_size_int
@@ -1287,19 +1292,14 @@ class ImageConcatNode:
                             canvas_x = margin + padding + col * (w_title_size_int + padding)
                             canvas_y = margin + padding + row * (w_title_size_int + padding) + y_offset
 
-                        # ========== 修正：末行居中逻辑 ==========
                         remaining_images = image_count_in_dir - idx_total
                         is_last_row = remaining_images > 0 and remaining_images <= n_per_row
                         is_incomplete_row = remaining_images > 0 and remaining_images < n_per_row
 
                         if col == 0 and is_last_row and is_incomplete_row:
-                            # 计算最后一行未使用的水平宽度，均分到左右两边
                             total_row_width = remaining_images * w_title_size_int + (remaining_images - 1) * padding
-                            # 修正：使用 width_page_use (可用宽度) 而不是 width_page_int (总宽度)
-                            # 这样可以正确对齐到有效内容区域的中心，而不是偏移一个 margin
                             unused_width = width_page_use - total_row_width
                             x_offset_last_row = unused_width // 2
-                        # ==================================================
 
                         canvas_x_int = int(canvas_x) + x_offset + x_offset_last_row
                         canvas_y_int = int(canvas_y)
@@ -1333,10 +1333,8 @@ class ImageConcatNode:
                         else:
                             img_resized = img.resize((resize_w, resize_h), Image.Resampling.LANCZOS)
                             img_x, img_y = canvas_x_int, canvas_y_int
-                        # print(f'Page{page_num}, canvas_x_int={canvas_x_int}, canvas_y_int={canvas_y_int}，'
-                        #       f'idx={idx+1},n_per_row={n_per_row}')
+
                     # Paste
-                    # Save Logic
                     if save_mode != "none":
                         self.save_single_title(img_resized, title_border, title_border_style,
                                                titles_save_dir, img_file, add_filename, filename_color,
@@ -1351,7 +1349,6 @@ class ImageConcatNode:
 
                     mask = img_resized.split()[-1] if img_mode == 'RGBA' else None
                     img_x = max(0, min(img_x, width_page_int - img_resized.width))
-                    # img_y = max(0, min(img_y, height_page_int - img_resized.height))
                     concat.paste(img_resized, (img_x, img_y), mask=mask)
 
                     # Border
@@ -1376,13 +1373,10 @@ class ImageConcatNode:
                     if add_filename != "none":
                         text_color = filename_color
 
-                        # 计算 X 轴参考宽度
                         ref_w = resize_w
                         if equal_height_mode:
                             ref_w = img_resized.width
 
-                        # 计算 Y 轴参考高度
-                        # 修正核心：始终基于 title 的高度 (resize_h) 和 title 的顶部 (canvas_y_int) 进行定位
                         ref_h = resize_h
 
                         font_size = int(min(ref_w, ref_h) * 0.05)
@@ -1391,31 +1385,24 @@ class ImageConcatNode:
                         text_w = text_bbox[2] - text_bbox[0]
                         text_h = text_bbox[3] - text_bbox[1]
 
-                        # X轴居中
                         text_x = canvas_x_int + (ref_w - text_w) // 2
 
                         gap = 8
 
-                        # Y轴定位逻辑修正：全部基于 canvas_y_int (title顶部) 和 resize_h (title高度)
                         if add_filename == "above":
                             text_y = canvas_y_int - text_h - gap
                         elif add_filename == "top":
-                            # 修正：原代码使用 img_y (图片顶部)，现改为 canvas_y_int (title顶部)
                             text_y = canvas_y_int + gap
                         elif add_filename == "middle":
-                            # 修正：原代码基于 img_y 偏移，现改为基于 title 垂直居中
                             text_y = canvas_y_int + (resize_h - text_h) // 2
                         elif add_filename == "bottom":
-                            # 修正：原代码基于 img_y 偏移，现改为基于 title 底部
                             text_y = canvas_y_int + resize_h - text_h - gap
                         elif add_filename == "below":
                             text_y = canvas_y_int + resize_h + gap
-                        # bg设为None，移除衬底
                         filename_draw_info.append({'xy': (text_x, text_y),
                                                    'rect': [text_x - 5, text_y - 2, text_x + text_w + 5,
                                                             text_y + text_h + 2], 'text': img_file, 'font': font,
                                                    'fill': text_color, 'bg': None})
-
 
                 except Exception as e:
                     print(f"[Error] draw {idx}: {e}")
@@ -1446,12 +1433,11 @@ class ImageConcatNode:
                         a8_title_first_position, a7_title_draw_mode, a10_title_border, a11_title_border_style,
                         a12_page_border, a13_page_border_style, a97_title_save_mode, a98_title_save_dir,
                         a99_title_save_filename,
-                        a9_background_style, a14_filename_position, a15_filename_color):
+                        a9_background_style, a14_filename_position, a15_filename_color, a0_images=None):
 
         self.image_dir_full = a1_image_dir
         self.width_page_use_global = a2_page_width - 2 * a5_page_margin
 
-        # 1. 处理新功能：获取文件名颜色
         filename_color_rgb = self.get_filename_color_by_name(a15_filename_color)
 
         titles_final_path = ""
@@ -1461,30 +1447,54 @@ class ImageConcatNode:
                 mode_suffix = "(1)"
             elif a97_title_save_mode == "save single image":
                 mode_suffix = "(2)"
-            # =================================================
 
-            # 如果勾选保存，计算带时间戳的路径（包含模式后缀）
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            # 拼接路径格式：.../concat_titles(1)_20250117_123045
             titles_final_path = os.path.join(a98_title_save_dir, f"concat_titles{mode_suffix}_{timestamp}").replace(
                 "\\", "/")
             os.makedirs(titles_final_path, exist_ok=True)
         else:
-            # 如果未勾选，输出英文提示
             titles_final_path = "can't display `b5_title_save_path` due to `a97_title_save_mode` is 'none'"
 
-        if not os.path.exists(a1_image_dir):
-            print(f"[Error] 图片文件夹不存在: {a1_image_dir}")
+        # --- 新增：处理输入图像逻辑 ---
+        self.use_input_images = False
+        image_cache = {}
+
+        if a0_images is not None:
+            print(f"[✅ Detected input images batch. Batch size: {len(a0_images)}")
+            self.use_input_images = True
+            self.image_cache = {}
+
+            # 转换 Tensor -> PIL 列表
+            pil_images = []
+            for i in range(len(a0_images)):
+                # 提取单张图 -> 转换 -> 转 uint8 -> 转 PIL
+                img_tensor = a0_images[i]
+                i_np = img_tensor.cpu().numpy() * 255.0
+                i_np = i_np.clip(0, 255).astype(np.uint8)
+                pil_images.append(Image.fromarray(i_np))
+
+            # 生成虚拟文件名并存入缓存
+            image_files = [f"input_img_{i + 1:05d}.png" for i in range(len(pil_images))]
+            for name, pil_img in zip(image_files, pil_images):
+                self.image_cache[name] = pil_img
+
+            image_count_in_dir = len(image_files)
+            # 覆盖文件夹路径，防止后续逻辑报错（虽然输入模式下不检查路径）
+            self.image_dir_full = "Input_Stream"
+
+        elif os.path.exists(a1_image_dir):
+            # 原有逻辑：从文件夹读取
+            image_extensions = ('.png', '.jpg', '.jpeg', '.bmp', '.gif', '.tiff', '.webp')
+            image_files = [f for f in os.listdir(a1_image_dir) if f.lower().endswith(image_extensions)]
+            image_count_in_dir = len(image_files)
+        else:
+            print(f"[Error] 图片文件夹不存在: {a1_image_dir} 且无输入图像")
             error_img = np.zeros((1, 100, 100, 3), dtype=np.float32)
             error_img[:, :, :, 0] = 1.0
             return (torch.from_numpy(error_img), 0, "0×0", 0, titles_final_path, self.get_node_tips())
 
-        image_extensions = ('.png', '.jpg', '.jpeg', '.bmp', '.gif', '.tiff', '.webp')
-        image_files = [f for f in os.listdir(a1_image_dir) if f.lower().endswith(image_extensions)]
-        image_count_in_dir = len(image_files)
-
         if image_count_in_dir == 0:
-            print("[Error] 文件夹内无有效图片")
+            print("[Error] 无有效图片")
             error_img = np.zeros((1, 100, 100, 3), dtype=np.float32)
             error_img[:, :, :, 0] = 1.0
             error_img[:, :, :, 1] = 1.0
@@ -1502,7 +1512,6 @@ class ImageConcatNode:
         has_outer_padding = (not is_start_from_margin)
         is_vert_center = (a8_title_first_position == "start_from margin + padding(vertical centering)")
 
-        # ========== 关键修正：变量前置初始化 ==========
         equal_width_mode = a7_title_draw_mode == "5.equal title width up_down"
         equal_height_mode = a7_title_draw_mode == "6.equal title height left_right"
         page_group_count = {}
@@ -1512,16 +1521,13 @@ class ImageConcatNode:
         w_title_size = 100
         h_title_size = 100
         wh_per_title = ""
-        n_per_col_actual = 1  # 新增：用于存储实际计算出的每页行数
-        # ================================================
+        n_per_col_actual = 1
 
         if is_a4_equals_1:
-            # ========== a4=1 (单列) 逻辑 ==========
             page_data_list = self.calc_vertical_title_groups_a4_1(
                 image_files, width_page_use, height_page_use,
                 a6_title_padding, a8_title_first_position, a7_title_draw_mode
             )
-            # 填充分页信息
             for i in range(len(page_data_list)):
                 page_group_count[i] = 1
                 page_total_occupy_height.append(height_page_use)
@@ -1529,7 +1535,6 @@ class ImageConcatNode:
 
             m = page_data_list[0]['meta'] if page_data_list else {}
             if m.get('type') == 'square':
-                # 修复：同时定义 int 类型变量，供后续 wh_per_title 使用
                 w_title_size_int = m['size']
                 h_title_size_int = m['size']
                 w_title_size = w_title_size_int
@@ -1537,18 +1542,17 @@ class ImageConcatNode:
                 wh_per_title = f"title width = {w_title_size_int}\nequal title height = {h_title_size_int}"
             elif m.get('type') == 'fixed_width':
                 w_title_size_int = m['width']
-                h_title_size_int = m['width']  # 传宽高相同，函数内重新计算h
+                h_title_size_int = m['width']
                 w_title_size = w_title_size_int
-                h_title_size = w_title_size_int  # 保持变量一致
+                h_title_size = w_title_size_int
                 wh_per_title = f"equal title width = {w_title_size_int}"
             elif m.get('type') == 'fixed_height':
-                w_title_size_int = m['height']  # 传高宽相同，函数内重新计算w
+                w_title_size_int = m['height']
                 h_title_size_int = m['height']
                 w_title_size = h_title_size_int
                 h_title_size = h_title_size_int
                 wh_per_title = f"equal title height = {h_title_size_int}"
             else:
-                # 兜底逻辑
                 w_title_size = 100
                 h_title_size = 100
                 w_title_size_int = 100
@@ -1556,7 +1560,6 @@ class ImageConcatNode:
                 wh_per_title = f"{w_title_size_int}×{h_title_size_int}"
 
         else:
-            # ========== a4>1 (多列) 逻辑 ==========
             if is_start_from_margin:
                 w_title_size = (width_page_use - (a4_cols_rows_per_page - 1) * a6_title_padding) / a4_cols_rows_per_page
             else:
@@ -1570,7 +1573,6 @@ class ImageConcatNode:
             else:
                 h_title_size_int = max(1, int(w_title_size / self.convert_ratio_to_float(a3_page_aspect_ratio)))
 
-            # 修复：确保 h_title_size 赋值为正确的整数，否则传递给 create_single_concat_page 时可能是初始值 100
             h_title_size = h_title_size_int
 
             if equal_width_mode:
@@ -1592,7 +1594,7 @@ class ImageConcatNode:
                     page_total_occupy_height.append(height_page_use)
                 wh_per_title = f"equal title width = {w_title_size_int}"
             elif equal_height_mode:
-                _, _, row_groups, page_row_mapping, page_total_occupy_height_calc, _ = self.calc_horizontal_row_groups(
+                w_diff_title_size, w_row_group_size, row_groups, page_row_mapping, page_total_occupy_height_calc, _ = self.calc_horizontal_row_groups(
                     image_files, width_page_use, height_page_use, a6_title_padding, a8_title_first_position,
                     h_title_size_int,
                     a4_cols_rows_per_page
@@ -1605,10 +1607,8 @@ class ImageConcatNode:
                     for r in page_rows: page_images.extend(r)
                     page_image_mapping[page_idx] = page_images
                     page_group_count[page_idx] = len(page_rows)
-                    # page_total_occupy_height 已在上方赋值为 list
                 wh_per_title = f"equal title height = {h_title_size_int}"
             else:
-                # 模式1-4 段通网格
                 n_per_col = 1
                 for n in range(100, 0, -1):
                     h_sum = n * h_title_size_int + (n - 1) * a6_title_padding
@@ -1618,7 +1618,7 @@ class ImageConcatNode:
                         n_per_col = n
                         break
                 if n_per_col == 0: n_per_col = 1
-                n_per_col_actual = n_per_col  # 保存实际行数
+                n_per_col_actual = n_per_col
 
                 titles_per_page = a4_cols_rows_per_page * n_per_col
                 image_pages = [image_files[i:i + titles_per_page] for i in range(0, len(image_files), titles_per_page)]
@@ -1636,21 +1636,17 @@ class ImageConcatNode:
         all_concats = []
         vertical_offset_mode = a8_title_first_position == "start_from margin + padding(vertical centering)"
 
-        # 关键修正：循环遍历 page_image_mapping，而不是 page_data_list，确保索引兼容
         for page_idx in range(len(page_image_mapping)):
             current_page_num = page_idx + 1
 
-            # 计算全局索引起始值
             global_start_idx = 0
             for i in range(page_idx):
                 global_start_idx += len(page_image_mapping[i])
 
-            # 安全获取分页数据
             current_group_cnt = page_group_count.get(page_idx, 1)
             current_page_h = page_total_occupy_height[page_idx] if page_idx < len(
                 page_total_occupy_height) else height_page_use
 
-            # 获取文件列表
             if isinstance(page_image_mapping[page_idx][0], int):
                 page_image_files = [image_files[idx] for idx in page_image_mapping[page_idx]]
             else:
@@ -1659,13 +1655,11 @@ class ImageConcatNode:
             print(
                 f"\n{'=' * 50} 绘制第 {current_page_num}/{len(page_image_mapping)} 页 (块组数: {current_group_cnt}) {'=' * 50}")
 
-            # 计算 n_per_col 参数
             n_per_col_arg = 1
             if not equal_height_mode and not equal_width_mode:
-                # 修正：直接使用前面计算出的实际行数，而不是错误的除法公式
                 n_per_col_arg = n_per_col_actual
             elif equal_height_mode:
-                n_per_col_arg = 9999  # 哑牌值，防止除零
+                n_per_col_arg = 9999
 
             concat_page_np = self.create_single_concat_page(
                 page_image_files, a2_page_width, height_page, a4_cols_rows_per_page,
@@ -1679,7 +1673,7 @@ class ImageConcatNode:
                 current_page_group_count=current_group_cnt,
                 page_total_occupy_h=current_page_h,
                 add_filename=a14_filename_position,
-                filename_color=filename_color_rgb,  # 新增：传入颜色
+                filename_color=filename_color_rgb,
                 page_meta=page_data_list[page_idx]['meta'] if is_a4_equals_1 and page_idx < len(
                     page_data_list) else None
             )
@@ -1693,7 +1687,7 @@ class ImageConcatNode:
 
 
 NODE_CLASS_MAPPINGS["ImageConcatNode"] = ImageConcatNode
-NODE_DISPLAY_NAME_MAPPINGS["ImageConcatNode"] = "Image concatenate(V1.1 QQ2540968810)"
+NODE_DISPLAY_NAME_MAPPINGS["ImageConcatNode"] = "Image concatenate(V1.2 QQ2540968810)"
 
 if __name__ == "__main__":
-    print("✅ Comfyui-Image-Concat(V1.1) Registration successful!")
+    print("✅ Comfyui-Image-Concat(V1.2) Registration successful!")
