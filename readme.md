@@ -316,6 +316,7 @@ If you find this tool helpful, you can buy me a cup of coffee ☕
 [def9]: images/image_concat6_v1.1.png
 [def10]: images/change_size_batchly_v1.1.png
 [def11]: images/one_port.png
-[def12]: images/from_input_images.png
+[def12]: images/from_input_images_node.png
 [def99]: images/donate.png
+
 
