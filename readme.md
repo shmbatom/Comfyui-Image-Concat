@@ -102,6 +102,8 @@ This node is a powerful image concatenation tool for ComfyUI, with True Alpha Ch
 3. Run this node
 ![help_info][def11]
 
+---
+
 ### V. Usage Examples
 
 #### ✅ 1. Basic Usage (Quick Start)
@@ -208,7 +210,9 @@ V1.0 stitching image as below:
 
 ![change_size_batchly_v1.1][def10]
 
-### V. Installation
+---
+
+### VI. Installation
 
 #### Method 1: Manual Installation (Recommended)
 1. Manual Installation (Recommended) 
@@ -233,7 +237,7 @@ V1.0 stitching image as below:
 
 ---
 
-### VI. Notes & Limitations
+### VII. Notes & Limitations
 
 
 - **Output format**: All output images retain alpha channel (PNG format recommended for transparency)
@@ -254,7 +258,7 @@ Min:1, Max:20, Default:3
 
 ---
 
-### VII. Update log
+### VIII. Update log
 
 #### v1.1 (2025/01/18)
 
@@ -266,7 +270,7 @@ Min:1, Max:20, Default:3
 
 ---
 
-### VIII. Donation
+### IX. Donation
 
 If you find this tool helpful, you can buy me a cup of coffee ☕
 
@@ -287,4 +291,5 @@ If you find this tool helpful, you can buy me a cup of coffee ☕
 [def10]: images/change_size_batchly_v1.1.png
 [def11]: images/one_port.png
 [def99]: images/donate.png
+
 
