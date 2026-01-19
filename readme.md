@@ -265,6 +265,7 @@ V1.0 stitching image as below:
 ---
 
 - **Output format**: All output images retain alpha channel (PNG format recommended for transparency)
+- **a0_image**: input images from other node. You can use `a0_images` or `a1_image_dir` as source images, but `a1_image_dir` will be IGNORED if this two ports are both setted.
 - **a4_cols_rows_per_page**: Columns/Rows Per Page
    - For Mode 1-5: Set the fixed number of columns per row
    - For Mode 6: Set the fixed number of rows per page
@@ -287,7 +288,8 @@ Min:1, Max:20, Default:3
 
 #### v1.1 (2025/01/18)
 
--  Added 2 new bitmap stitching modes: equal-width vertical stitching (top to bottom), equal-height horizontal stitching (left to right)
+-  Add 1 optional IMAGES input port named `a0_image`.  
+-  Add 2 new bitmap stitching modes: equal-width vertical stitching (top to bottom), equal-height horizontal stitching (left to right)
 -  Optimized the tile saving mode, including three options: none/save single block/save single image
 -  Added the function of displaying image filenames on the stitched tiles, with customizable text colors (16 colors)
 -  Simply connect to the b6 port to view the usage help for this node
@@ -318,5 +320,6 @@ If you find this tool helpful, you can buy me a cup of coffee ☕
 [def11]: images/one_port.png
 [def12]: images/from_input_images_node.png
 [def99]: images/donate.png
+
 
 
