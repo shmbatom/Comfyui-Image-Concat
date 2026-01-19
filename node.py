@@ -717,6 +717,8 @@ class ImageConcatNode:
         current_group = []
         current_col_height = 0
         page_height_limit = height_page_use
+        if title_first_position != "start_from margin":
+            page_height_limit = height_page_use - 2 * padding                               
         current_page_lock_w = w_title_size_int
 
         for idx, (img_w, img_h) in enumerate(img_wh_list):
@@ -1691,3 +1693,4 @@ NODE_DISPLAY_NAME_MAPPINGS["ImageConcatNode"] = "Image concatenate(V1.2 QQ254096
 
 if __name__ == "__main__":
     print("✅ Comfyui-Image-Concat(V1.2) Registration successful!")
+
